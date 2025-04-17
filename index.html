@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DoSE Secure Uplink</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #010203;
+      color: #00ffcc;
+      font-family: 'Share Tech Mono', monospace;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+ .background-logo {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.1; /* increased from 0.05 */
+    width: 500px;
+    max-width: 80%;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      text-align: left;
+      width: 85%;
+      max-width: 960px;
+      background: #0d1117;
+      padding: 2rem;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffcc55;
+    }
+
+    .header {
+      font-size: 1.3rem;
+      color: #ff3c41;
+      margin-bottom: 1rem;
+    }
+
+    .agency {
+      font-size: 1rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+    .terminal-line {
+      color: #00ffcc;
+      font-size: 1rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .progress-bar {
+      background: #001f1a;
+      border: 1px solid #00ffcc;
+      margin-top: 1rem;
+      position: relative;
+      height: 25px;
+      width: 100%;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: linear-gradient(to right, #00ffcc, #007777);
+      height: 100%;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 4px #00ffccaa;
+    }
+
+    .fake-file {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #f5f5f5;
+    }
+
+    .warning {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #ffffff;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <img src="dose-seal.png" alt="DoSE Seal" class="background-logo" />
+
+  <div class="screen" id="screen">
+    <div class="header">⚠️ CLASSIFIED SYSTEM INTERFACE</div>
+    <div class="agency">Department of Survival Efficiency [DoSE] — Remote Uplink Session Active</div>
+    <div class="terminal-line">> Establishing secure uplink...</div>
+    <div class="terminal-line">> Connection confirmed: 192.168.1.404 → DoSE Node 88-B</div>
+    <div class="terminal-line">> Extracting data payload...</div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="fake-file" id="fileName"></div>
+
+    <div class="warning hidden" id="warningMsg">
+      ✅ Upload Complete<br>
+      Your data is now part of the network. Thank you for your contribution.
+    </div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const fileNames = [
+        "gaia_payload.sys",
+        "rubber_ducky.exe",
+        "passlist_backup.gpg",
+        "network-config.conf",
+        "browser_history.txt",
+        "keylog.txt",
+        "facial_snapshot.png"
+      ];
+
+      const progressFill = document.getElementById("progressFill");
+      const fileName = document.getElementById("fileName");
+      const warningMsg = document.getElementById("warningMsg");
+
+      let i = 0;
+
+      function uploadNextFile() {
+        if (i >= fileNames.length) {
+          setTimeout(() => {
+            warningMsg.classList.remove("hidden");
+            setTimeout(() => {
+              window.location.href = "truth.html";
+            }, 5000);
+          }, 1000);
+          return;
+        }
+
+        fileName.textContent = `> Writing ${fileNames[i]}`;
+        let percent = 0;
+
+        const interval = setInterval(() => {
+          percent += 10;
+          progressFill.style.width = percent + "%";
+
+          if (percent >= 100) {
+            clearInterval(interval);
+            i++;
+            progressFill.style.width = "0%";
+            setTimeout(uploadNextFile, 500);
+          }
+        }, 100);
+      }
+
+      uploadNextFile();
+    };
+  </script>
+</body>
+</html>

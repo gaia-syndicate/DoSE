@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DoSE Uplink: Status Report</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #010203;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00ffcc;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* DoSE Watermark */
+  .background-logo {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.1; /* previously 0.05 */
+    width: 500px;
+    max-width: 80%;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+
+    .screen {
+      position: relative;
+      text-align: left;
+      width: 85%;
+      max-width: 960px;
+      background: #0d1117;
+      padding: 2rem;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffcc55;
+      z-index: 1;
+    }
+
+    .status-text {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #00ffcc;
+      margin-bottom: 1.5rem;
+    }
+
+    .details {
+      font-size: 1.1rem;
+      color: #ffffff;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .uplink-status {
+      color: #ff3c41;
+      font-weight: bold;
+    }
+
+    .cta {
+      display: inline-block;
+      font-size: 1rem;
+      color: #000;
+      background: #00ffcc;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #00ffcc99;
+      transition: all 0.3s ease;
+    }
+
+    .cta:hover {
+      background: #ff3c41;
+      color: #fff;
+      box-shadow: 0 0 16px #ff3c41aa;
+    }
+
+    @media (max-width: 600px) {
+      .screen {
+        padding: 1.5rem;
+      }
+
+      .status-text {
+        font-size: 1.5rem;
+      }
+
+      .details {
+        font-size: 1rem;
+      }
+
+      .cta {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DoSE Seal Background -->
+  <img src="dose-seal.png" alt="DoSE Seal" class="background-logo" />
+
+  <div class="screen">
+    <div class="status-text">EXTRACTION COMPLETE</div>
+    <div class="details">
+      Data successfully acquired by the <strong>Department of Survival Efficiency</strong>.<br><br>
+      🔴 <span class="uplink-status">Uplink terminated</span><br>
+      Your system has returned to idle.<br><br>
+      <em>This was a controlled simulation conducted by <strong>The GAIA Syndicate</strong>.</em>
+    </div>
+    <a href="security-tips.html" class="cta">View Cyber Hygiene Briefing</a>
+  </div>
+</body>
+</html>

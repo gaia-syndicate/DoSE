@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DoSE Cyber Hygiene Briefing</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 3rem 2rem 6rem;
+      font-family: 'Share Tech Mono', monospace;
+      background: #010203;
+      color: #00ffcc;
+      line-height: 1.7;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #0d1117;
+      border: 2px solid #00ffcc;
+      border-radius: 12px;
+      padding: 2rem 2.5rem 3rem;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 20px #00ffcc33;
+    }
+
+.dose-watermark {
+  display: block;
+  margin: 0 auto 1.5rem;
+  max-width: 300px;
+  width: 45%;
+  opacity: 0.15; /* Increased from 0.07 */
+  user-select: none;
+  pointer-events: none;
+}
+
+    h1 {
+      color: #00ffcc;
+      font-size: 2rem;
+      text-align: center;
+      border-bottom: 2px solid #00ffcc;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      color: #00ffcc;
+      font-size: 1.3rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #00ffcc;
+      padding-left: 1rem;
+    }
+
+    ul {
+      list-style-type: square;
+      padding-left: 2rem;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .tool {
+      color: #00ffcc;
+      font-weight: bold;
+    }
+
+    a {
+      color: #00ffcc;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #ff3c41;
+    }
+
+    .print-btn {
+      display: block;
+      margin: 3rem auto 1rem;
+      background: #00ffcc;
+      color: #000;
+      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffcc88;
+      transition: background 0.3s;
+    }
+
+    .print-btn:hover {
+      background: #ff3c41;
+      color: white;
+      box-shadow: 0 0 12px #ff3c41aa;
+    }
+
+    .footer {
+      font-size: 0.9rem;
+      color: #888;
+      border-top: 1px solid #222;
+      padding-top: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .footer a {
+      text-decoration: none;
+      color: #00ffcc;
+    }
+
+    .footer a:hover {
+      color: #ff3c41;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 2rem 1rem 4rem;
+      }
+
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+      }
+
+      .dose-watermark {
+        width: 65%;
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <img src="dose-seal.png" alt="DoSE Seal" class="dose-watermark" />
+
+    <h1>Cyber Hygiene Briefing</h1>
+
+    <h2>📌 Digital Habits That Prevent Exploitation</h2>
+    <ul>
+      <li>⚠️ Do not plug in unknown USB drives, NFC tags, or scan random QR codes.</li>
+      <li>🔐 Use unique, complex passwords. Recommended: <a href="https://bitwarden.com" target="_blank">Bitwarden</a>.</li>
+      <li>🔄 Always enable Two-Factor Authentication (2FA).</li>
+      <li>🧼 Apply OS & software updates regularly to patch known vulnerabilities.</li>
+      <li>🌐 Use a secure VPN on public networks. Avoid public Wi-Fi for sensitive tasks.</li>
+      <li>👁️ Audit your digital identity. Google yourself. Remove what you don't trust.</li>
+      <li>🧯 Backup critical data — encrypted, both local and offsite.</li>
+    </ul>
+
+    <h2>🧰 White-Hat Defense Tools (Approved Recon)</h2>
+    <ul>
+      <li><span class="tool">🛠️ Kali Linux</span> – Offensive security OS: <a href="https://www.kali.org/" target="_blank">kali.org</a></li>
+      <li><span class="tool">🔎 Nmap</span> – Port scanner / device mapper: <a href="https://nmap.org" target="_blank">nmap.org</a></li>
+      <li><span class="tool">🧬 Wireshark</span> – Real-time packet analysis: <a href="https://www.wireshark.org" target="_blank">wireshark.org</a></li>
+      <li><span class="tool">🧠 Metasploit</span> – Framework for penetration testing: <a href="https://www.metasploit.com/" target="_blank">metasploit.com</a></li>
+      <li><span class="tool">🛡️ ClamAV</span> – Lightweight open-source antivirus: <a href="https://www.clamav.net/" target="_blank">clamav.net</a></li>
+      <li><span class="tool">📦 VirusTotal</span> – Threat scanner for files/URLs: <a href="https://www.virustotal.com/" target="_blank">virustotal.com</a></li>
+      <li><span class="tool">🧩 DuckDuckGo</span> – Private search engine: <a href="https://duckduckgo.com/" target="_blank">duckduckgo.com</a></li>
+    </ul>
+
+    <h2>📚 Advanced Training & Ongoing Intel</h2>
+    <ul>
+      <li>📘 Training portals: <a href="https://tryhackme.com/" target="_blank">TryHackMe</a>, <a href="https://www.cybrary.it/" target="_blank">Cybrary</a></li>
+      <li>📰 Real-time updates: <a href="https://krebsonsecurity.com/" target="_blank">Krebs on Security</a>, <a href="https://thehackernews.com/" target="_blank">The Hacker News</a></li>
+      <li>💬 Field discussions: <a href="https://www.reddit.com/r/netsec/" target="_blank">r/netsec</a>, <a href="https://defcon.org/" target="_blank">DEFCON</a></li>
+    </ul>
+
+    <button class="print-btn" onclick="window.print()">🖨️ Print This Briefing</button>
+
+    <div class="footer">
+      Briefing compiled by <strong><a href="https://gaia-syndicate.ddns.net" target="_blank">The GAIA Syndicate</a></strong> in cooperation with DoSE.<br>
+      Maintain vigilance. Trust no default. 🕶️<br>
+      <span style="color:#ff3c41;">This was only a simulation. Next time it might not be. 🔓💡</span>
+    </div>
+
+  </div>
+</body>
+</html>
