@@ -87,32 +87,7 @@
       }
     }
 
-    /* DoSE Watermark */
-    .background-logo {
-      position: absolute;
-      top: 8%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0.12;
-      width: 500px;
-      max-width: 80%;
-      pointer-events: none;
-      z-index: 0;
-      user-select: none;
-      filter: drop-shadow(0 0 30px rgba(0,255,204,0.2));
-      animation: logoFloat 6s ease-in-out infinite;
-    }
 
-    @keyframes logoFloat {
-      0%, 100% { 
-        opacity: 0.12; 
-        transform: translateX(-50%) translateY(0) scale(1);
-      }
-      50% { 
-        opacity: 0.18; 
-        transform: translateX(-50%) translateY(-10px) scale(1.01);
-      }
-    }
 
     .screen {
       position: relative;
@@ -193,6 +168,19 @@
         0 0 20px rgba(0,255,204,0.3);
       animation: statusPulse 2s ease-in-out infinite, textEntry 1s ease-out;
       letter-spacing: 2px;
+    }
+
+    @keyframes sealPulse {
+      0%, 100% { 
+        opacity: 0.9; 
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(0,255,204,0.5));
+      }
+      50% { 
+        opacity: 1; 
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(0,255,204,0.7));
+      }
     }
 
     @keyframes statusPulse {
@@ -428,11 +416,15 @@
   <!-- Floating particles -->
   <div class="particles" id="particles"></div>
 
-  <!-- DoSE Seal Background -->
-  <img src="dose-seal.png" alt="DoSE Seal" class="background-logo" />
+
   
   <div class="screen" id="screen">
     <div class="scanline"></div>
+    
+    <!-- DoSE Seal positioned at top of screen content -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <img src="dose-seal.png" alt="DoSE Seal" style="width: 180px; opacity: 0.9; filter: drop-shadow(0 0 20px rgba(0,255,204,0.5)); animation: sealPulse 3s ease-in-out infinite;" />
+    </div>
     
     <div class="status-indicators">
       <div class="status-dot success"></div>
