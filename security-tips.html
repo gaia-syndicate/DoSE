@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DoSE Cyber Hygiene Briefing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -19,140 +20,578 @@
       background-attachment: fixed;
       overflow-x: hidden;
       position: relative;
+      animation: pageLoad 1.5s ease-out;
+    }
+
+    @keyframes pageLoad {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Animated background grid */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0,255,204,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,204,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridMove 30s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(40px, 40px); }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: radial-gradient(circle, #00ffcc 0%, transparent 70%);
+      border-radius: 50%;
+      animation: floatSlow 25s infinite linear;
+      opacity: 0.3;
+    }
+
+    @keyframes floatSlow {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.3;
+      }
+      90% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 0 auto;
-      background: #0d1117;
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
       border: 2px solid #00ffcc;
-      border-radius: 12px;
-      padding: 2rem 2.5rem 3rem;
+      border-radius: 20px;
+      padding: 2.5rem 3rem 3.5rem;
       position: relative;
       z-index: 2;
-      box-shadow: 0 0 20px #00ffcc33;
+      box-shadow: 
+        0 0 40px rgba(0,255,204,0.3),
+        inset 0 0 30px rgba(0,255,204,0.05);
+      backdrop-filter: blur(10px);
+      animation: containerEntry 1.2s ease-out 0.3s both, containerGlow 5s ease-in-out infinite alternate 2s;
+      overflow: hidden;
     }
 
-.dose-watermark {
-  display: block;
-  margin: 0 auto 1.5rem;
-  max-width: 300px;
-  width: 45%;
-  opacity: 0.15; /* Increased from 0.07 */
-  user-select: none;
-  pointer-events: none;
-}
+    @keyframes containerEntry {
+      0% { 
+        opacity: 0; 
+        transform: scale(0.95) translateY(30px);
+      }
+      100% { 
+        opacity: 1; 
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes containerGlow {
+      0% { 
+        box-shadow: 
+          0 0 40px rgba(0,255,204,0.3),
+          inset 0 0 30px rgba(0,255,204,0.05);
+      }
+      100% { 
+        box-shadow: 
+          0 0 60px rgba(0,255,204,0.5),
+          inset 0 0 40px rgba(0,255,204,0.1);
+      }
+    }
+
+    /* Scanline effect */
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffcc, transparent);
+      animation: scanlineMove 6s linear infinite;
+      opacity: 0.4;
+      z-index: 3;
+    }
+
+    @keyframes scanlineMove {
+      0% { top: 0; opacity: 0; }
+      20% { opacity: 0.4; }
+      80% { opacity: 0.4; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .dose-watermark {
+      display: block;
+      margin: 0 auto 2rem;
+      max-width: 300px;
+      width: 45%;
+      opacity: 0.18;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 0 20px rgba(0,255,204,0.2));
+      animation: logoFloat 4s ease-in-out infinite, logoEntry 1.5s ease-out 0.8s both;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { 
+        opacity: 0.18; 
+        transform: translateY(0) scale(1);
+      }
+      50% { 
+        opacity: 0.25; 
+        transform: translateY(-8px) scale(1.02);
+      }
+    }
+
+    @keyframes logoEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateY(-20px) scale(0.8);
+      }
+      100% { 
+        opacity: 0.18; 
+        transform: translateY(0) scale(1);
+      }
+    }
 
     h1 {
       color: #00ffcc;
-      font-size: 2rem;
+      font-size: 2.2rem;
       text-align: center;
-      border-bottom: 2px solid #00ffcc;
-      padding-bottom: 0.5rem;
-      margin-bottom: 2rem;
+      border-bottom: 3px solid #00ffcc;
+      padding-bottom: 0.7rem;
+      margin-bottom: 2.5rem;
+      text-shadow: 
+        0 0 10px rgba(0,255,204,0.4),
+        0 0 20px rgba(0,255,204,0.2);
+      animation: titlePulse 3s ease-in-out infinite, titleEntry 1.2s ease-out 1s both;
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { 
+        text-shadow: 
+          0 0 10px rgba(0,255,204,0.4),
+          0 0 20px rgba(0,255,204,0.2);
+      }
+      50% { 
+        text-shadow: 
+          0 0 15px rgba(0,255,204,0.6),
+          0 0 30px rgba(0,255,204,0.3);
+      }
+    }
+
+    @keyframes titleEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateY(20px);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0);
+      }
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00ffcc, #00ff88);
+      animation: borderGrow 2s ease-out 1.5s both;
+    }
+
+    @keyframes borderGrow {
+      0% { width: 0; }
+      100% { width: 100%; }
     }
 
     h2 {
       color: #00ffcc;
-      font-size: 1.3rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      border-left: 4px solid #00ffcc;
-      padding-left: 1rem;
+      font-size: 1.4rem;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      border-left: 5px solid #00ffcc;
+      padding-left: 1.2rem;
+      text-shadow: 0 0 8px rgba(0,255,204,0.3);
+      animation: sectionEntry 0.8s ease-out both;
+      position: relative;
+      background: linear-gradient(90deg, rgba(0,255,204,0.05) 0%, transparent 100%);
+      padding: 0.5rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    h2:nth-of-type(1) { animation-delay: 1.8s; }
+    h2:nth-of-type(2) { animation-delay: 2.1s; }
+    h2:nth-of-type(3) { animation-delay: 2.4s; }
+
+    @keyframes sectionEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateX(-30px);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateX(0);
+      }
     }
 
     ul {
-      list-style-type: square;
-      padding-left: 2rem;
+      list-style: none;
+      padding-left: 0;
       margin: 0;
     }
 
     li {
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       font-size: 1.05rem;
+      padding: 0.8rem 1.2rem;
+      background: linear-gradient(90deg, rgba(0,255,204,0.02) 0%, transparent 100%);
+      border-left: 2px solid rgba(0,255,204,0.3);
+      border-radius: 0 8px 8px 0;
+      opacity: 0;
+      animation: itemEntry 0.6s ease-out both;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    li:nth-child(1) { animation-delay: 2.2s; }
+    li:nth-child(2) { animation-delay: 2.4s; }
+    li:nth-child(3) { animation-delay: 2.6s; }
+    li:nth-child(4) { animation-delay: 2.8s; }
+    li:nth-child(5) { animation-delay: 3.0s; }
+    li:nth-child(6) { animation-delay: 3.2s; }
+    li:nth-child(7) { animation-delay: 3.4s; }
+
+    @keyframes itemEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateX(-20px);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateX(0);
+      }
+    }
+
+    li:hover {
+      background: linear-gradient(90deg, rgba(0,255,204,0.08) 0%, rgba(0,255,204,0.02) 100%);
+      border-left-color: #00ffcc;
+      transform: translateX(5px);
+      box-shadow: 0 0 15px rgba(0,255,204,0.1);
+    }
+
+    li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0,255,204,0.1), transparent);
+      transition: width 0.3s ease;
+      z-index: -1;
+    }
+
+    li:hover::before {
+      width: 100%;
     }
 
     .tool {
       color: #00ffcc;
       font-weight: bold;
+      text-shadow: 0 0 6px rgba(0,255,204,0.4);
+      animation: toolGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes toolGlow {
+      0%, 100% { 
+        text-shadow: 0 0 6px rgba(0,255,204,0.4);
+      }
+      50% { 
+        text-shadow: 0 0 10px rgba(0,255,204,0.6);
+      }
     }
 
     a {
       color: #00ffcc;
-      text-decoration: underline;
-      transition: color 0.3s ease;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      border-bottom: 1px solid rgba(0,255,204,0.3);
+    }
+
+    a::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #ff3c41;
+      transition: width 0.3s ease;
     }
 
     a:hover {
       color: #ff3c41;
+      text-shadow: 0 0 8px rgba(255,60,65,0.3);
+    }
+
+    a:hover::after {
+      width: 100%;
     }
 
     .print-btn {
       display: block;
-      margin: 3rem auto 1rem;
-      background: #00ffcc;
+      margin: 4rem auto 2rem;
+      background: linear-gradient(135deg, #00ffcc 0%, #00ff88 100%);
       color: #000;
-      font-size: 1rem;
-      padding: 0.7rem 1.5rem;
+      font-size: 1.1rem;
+      padding: 1rem 2rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       font-family: 'Share Tech Mono', monospace;
       cursor: pointer;
-      box-shadow: 0 0 10px #00ffcc88;
-      transition: background 0.3s;
+      box-shadow: 
+        0 0 20px rgba(0,255,204,0.4),
+        inset 0 0 20px rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+      font-weight: bold;
+      letter-spacing: 1px;
+      animation: btnEntry 1s ease-out 3.8s both, btnPulse 3s ease-in-out infinite 5s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes btnEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.9);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes btnPulse {
+      0%, 100% { 
+        box-shadow: 
+          0 0 20px rgba(0,255,204,0.4),
+          inset 0 0 20px rgba(255,255,255,0.1);
+      }
+      50% { 
+        box-shadow: 
+          0 0 30px rgba(0,255,204,0.7),
+          inset 0 0 25px rgba(255,255,255,0.2);
+      }
+    }
+
+    .print-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .print-btn:hover::before {
+      left: 100%;
     }
 
     .print-btn:hover {
-      background: #ff3c41;
+      background: linear-gradient(135deg, #ff3c41 0%, #ff6b41 100%);
       color: white;
-      box-shadow: 0 0 12px #ff3c41aa;
+      box-shadow: 
+        0 0 30px rgba(255,60,65,0.6),
+        inset 0 0 25px rgba(255,255,255,0.2);
+      transform: translateY(-3px) scale(1.05);
     }
 
     .footer {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #888;
-      border-top: 1px solid #222;
-      padding-top: 2rem;
+      border-top: 2px solid rgba(0,255,204,0.2);
+      padding-top: 2.5rem;
       text-align: center;
-      margin-top: 3rem;
+      margin-top: 4rem;
+      background: linear-gradient(90deg, rgba(0,255,204,0.02) 0%, transparent 50%, rgba(0,255,204,0.02) 100%);
+      padding: 2.5rem 1rem;
+      border-radius: 10px;
+      animation: footerEntry 1s ease-out 4.2s both;
+    }
+
+    @keyframes footerEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateY(20px);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0);
+      }
     }
 
     .footer a {
       text-decoration: none;
       color: #00ffcc;
+      font-weight: bold;
     }
 
     .footer a:hover {
       color: #ff3c41;
+      text-shadow: 0 0 8px rgba(255,60,65,0.3);
     }
 
-    @media (max-width: 600px) {
+    .gaia-highlight {
+      color: #00ffcc;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(0,255,204,0.4);
+    }
+
+    .warning-text {
+      color: #ff3c41;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(255,60,65,0.4);
+      animation: warningBlink 2s ease-in-out infinite;
+    }
+
+    @keyframes warningBlink {
+      0%, 100% { 
+        text-shadow: 0 0 8px rgba(255,60,65,0.4);
+      }
+      50% { 
+        text-shadow: 0 0 15px rgba(255,60,65,0.7);
+      }
+    }
+
+    /* Status indicators */
+    .status-indicators {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 4;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #00ffcc;
+      box-shadow: 0 0 10px rgba(0,255,204,0.6);
+      animation: statusSuccess 1.5s ease-in-out infinite;
+    }
+
+    .status-dot:nth-child(2) { animation-delay: 0.3s; }
+    .status-dot:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes statusSuccess {
+      0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(0,255,204,0.6);
+      }
+      50% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 15px rgba(0,255,204,0.8);
+      }
+    }
+
+    @media (max-width: 700px) {
       body {
         padding: 2rem 1rem 4rem;
       }
 
       .container {
-        padding: 1.5rem;
+        padding: 2rem 1.5rem 2.5rem;
       }
 
       h1 {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
       }
 
       h2 {
-        font-size: 1.15rem;
+        font-size: 1.2rem;
+        margin-top: 2rem;
       }
 
       .dose-watermark {
-        width: 65%;
-        margin-bottom: 1rem;
+        width: 60%;
+        margin-bottom: 1.5rem;
+      }
+
+      li {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+      }
+
+      .print-btn {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+
+      .status-indicators {
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Animated grid background -->
+  <div class="grid-background"></div>
+  
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
 
   <div class="container">
+    <div class="scanline"></div>
+    
+    <div class="status-indicators">
+      <div class="status-dot"></div>
+      <div class="status-dot"></div>
+      <div class="status-dot"></div>
+    </div>
 
     <img src="dose-seal.png" alt="DoSE Seal" class="dose-watermark" />
 
@@ -190,11 +629,73 @@
     <button class="print-btn" onclick="window.print()">🖨️ Print This Briefing</button>
 
     <div class="footer">
-      Briefing compiled by <strong><a href="https://gaia-syndicate.com" target="_blank">The GAIA Syndicate</a></strong> in cooperation with DoSE.<br>
+      Briefing compiled by <strong><a href="https://gaia-syndicate.com" target="_blank" class="gaia-highlight">The GAIA Syndicate</a></strong> in cooperation with DoSE.<br>
       Maintain vigilance. Trust no default. 🕶️<br>
-      <span style="color:#ff3c41;">This was only a simulation. Next time it might not be. 🔓💡</span>
+      <span class="warning-text">This was only a simulation. Next time it might not be. 🔓💡</span>
     </div>
 
   </div>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 25 + 's';
+        particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Add interactive effects
+    function addInteractiveEffects() {
+      const listItems = document.querySelectorAll('li');
+      const tools = document.querySelectorAll('.tool');
+      
+      // Enhanced hover effects for list items
+      listItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateX(8px) scale(1.02)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateX(0) scale(1)';
+        });
+      });
+
+      // Glowing effect for tools
+      tools.forEach(tool => {
+        tool.addEventListener('mouseenter', function() {
+          this.style.textShadow = '0 0 15px rgba(0,255,204,0.8)';
+        });
+        
+        tool.addEventListener('mouseleave', function() {
+          this.style.textShadow = '0 0 6px rgba(0,255,204,0.4)';
+        });
+      });
+    }
+
+    // Initialize effects
+    window.onload = function() {
+      createParticles();
+      addInteractiveEffects();
+      
+      // Add scroll-based animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('h2, li').forEach(el => {
+        observer.observe(el);
+      });
+    };
+  </script>
 </body>
 </html>
