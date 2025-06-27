@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DoSE Uplink: Status Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -20,109 +21,480 @@
       align-items: center;
       height: 100vh;
       position: relative;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Animated background grid */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0,255,204,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,204,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 25s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: radial-gradient(circle, #00ffcc 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.4;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.4;
+      }
+      90% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(150px) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     /* DoSE Watermark */
-  .background-logo {
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0.1; /* previously 0.05 */
-    width: 500px;
-    max-width: 80%;
-    pointer-events: none;
-    z-index: 0;
-    user-select: none;
-  }
+    .background-logo {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.12;
+      width: 500px;
+      max-width: 80%;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+      filter: drop-shadow(0 0 30px rgba(0,255,204,0.2));
+      animation: logoFloat 6s ease-in-out infinite;
+    }
 
-.screen {
-  position: relative;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 85%;
-  max-width: 960px;
-  background: #0d1117;
-  padding: 2rem;
-  border: 2px solid #00ffcc;
-  border-radius: 10px;
-  box-shadow: 0 0 20px #00ffcc55;
-  z-index: 1;
-}
+    @keyframes logoFloat {
+      0%, 100% { 
+        opacity: 0.12; 
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+      50% { 
+        opacity: 0.18; 
+        transform: translateX(-50%) translateY(-10px) scale(1.01);
+      }
+    }
 
+    .screen {
+      position: relative;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      max-width: 1000px;
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
+      padding: 3rem 2.5rem;
+      border: 2px solid #00ffcc;
+      border-radius: 20px;
+      box-shadow: 
+        0 0 40px rgba(0,255,204,0.4),
+        inset 0 0 30px rgba(0,255,204,0.05),
+        0 0 100px rgba(0,255,204,0.1);
+      z-index: 1;
+      backdrop-filter: blur(15px);
+      animation: screenEntry 1.5s ease-out, screenGlow 4s ease-in-out infinite alternate;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes screenEntry {
+      0% { 
+        transform: scale(0.8) translateY(50px);
+        opacity: 0;
+      }
+      100% { 
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes screenGlow {
+      0% { 
+        box-shadow: 
+          0 0 40px rgba(0,255,204,0.4),
+          inset 0 0 30px rgba(0,255,204,0.05),
+          0 0 100px rgba(0,255,204,0.1);
+      }
+      100% { 
+        box-shadow: 
+          0 0 60px rgba(0,255,204,0.6),
+          inset 0 0 40px rgba(0,255,204,0.1),
+          0 0 120px rgba(0,255,204,0.2);
+      }
+    }
+
+    /* Scanline effect */
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00ffcc, transparent);
+      animation: scanlineMove 4s linear infinite;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    @keyframes scanlineMove {
+      0% { top: 0; opacity: 0; }
+      20% { opacity: 0.7; }
+      80% { opacity: 0.7; }
+      100% { top: 100%; opacity: 0; }
+    }
 
     .status-text {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-weight: bold;
       color: #00ffcc;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 
+        0 0 10px rgba(0,255,204,0.5),
+        0 0 20px rgba(0,255,204,0.3);
+      animation: statusPulse 2s ease-in-out infinite, textEntry 1s ease-out;
+      letter-spacing: 2px;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { 
+        text-shadow: 
+          0 0 10px rgba(0,255,204,0.5),
+          0 0 20px rgba(0,255,204,0.3);
+      }
+      50% { 
+        text-shadow: 
+          0 0 15px rgba(0,255,204,0.8),
+          0 0 30px rgba(0,255,204,0.5);
+      }
+    }
+
+    @keyframes textEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateY(20px);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0);
+      }
     }
 
     .details {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #ffffff;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+      text-shadow: 0 0 8px rgba(255,255,255,0.1);
+      animation: textEntry 1.5s ease-out 0.5s both;
+      max-width: 600px;
+      background: rgba(0,255,204,0.02);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid rgba(0,255,204,0.1);
     }
 
     .uplink-status {
       color: #ff3c41;
       font-weight: bold;
+      text-shadow: 
+        0 0 8px rgba(255,60,65,0.5),
+        0 0 16px rgba(255,60,65,0.3);
+      animation: dangerBlink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes dangerBlink {
+      0%, 100% { 
+        text-shadow: 
+          0 0 8px rgba(255,60,65,0.5),
+          0 0 16px rgba(255,60,65,0.3);
+      }
+      50% { 
+        text-shadow: 
+          0 0 12px rgba(255,60,65,0.8),
+          0 0 24px rgba(255,60,65,0.5);
+      }
+    }
+
+    .gaia-highlight {
+      color: #00ffcc;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(0,255,204,0.4);
     }
 
     .cta {
       display: inline-block;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: #000;
-      background: #00ffcc;
+      background: linear-gradient(135deg, #00ffcc 0%, #00ff88 100%);
       text-decoration: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 12px #00ffcc99;
-      transition: all 0.3s ease;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 
+        0 0 20px rgba(0,255,204,0.4),
+        inset 0 0 20px rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+      font-weight: bold;
+      letter-spacing: 1px;
+      animation: ctaEntry 2s ease-out 1s both, ctaPulse 3s ease-in-out infinite 2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes ctaEntry {
+      0% { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.9);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes ctaPulse {
+      0%, 100% { 
+        box-shadow: 
+          0 0 20px rgba(0,255,204,0.4),
+          inset 0 0 20px rgba(255,255,255,0.1);
+      }
+      50% { 
+        box-shadow: 
+          0 0 30px rgba(0,255,204,0.7),
+          inset 0 0 25px rgba(255,255,255,0.2);
+      }
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .cta:hover::before {
+      left: 100%;
     }
 
     .cta:hover {
-      background: #ff3c41;
+      background: linear-gradient(135deg, #ff3c41 0%, #ff6b41 100%);
       color: #fff;
-      box-shadow: 0 0 16px #ff3c41aa;
+      box-shadow: 
+        0 0 30px rgba(255,60,65,0.6),
+        inset 0 0 25px rgba(255,255,255,0.2);
+      transform: translateY(-2px) scale(1.05);
     }
 
-    @media (max-width: 600px) {
+    /* Status indicators */
+    .status-indicators {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.7rem;
+      z-index: 3;
+    }
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ff3c41;
+      animation: statusBlink 2s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(255,60,65,0.5);
+    }
+
+    .status-dot.success {
+      background: #00ffcc;
+      box-shadow: 0 0 15px rgba(0,255,204,0.6);
+      animation: successPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes successPulse {
+      0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(0,255,204,0.6);
+      }
+      50% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(0,255,204,0.8);
+      }
+    }
+
+    @keyframes statusBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Glitch effect for dramatic moments */
+    .glitch {
+      animation: glitchEffect 0.3s ease-in-out 3;
+    }
+
+    @keyframes glitchEffect {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+    }
+
+    @media (max-width: 700px) {
       .screen {
-        padding: 1.5rem;
+        width: 95%;
+        padding: 2rem 1.5rem;
       }
-
+      
       .status-text {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
       }
-
+      
       .details {
         font-size: 1rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+      }
+      
+      .cta {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+      
+      .background-logo {
+        width: 350px;
       }
 
-      .cta {
-        font-size: 0.95rem;
+      .status-indicators {
+        top: 1rem;
+        right: 1rem;
+        gap: 0.5rem;
+      }
+
+      .status-dot {
+        width: 12px;
+        height: 12px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Animated grid background -->
+  <div class="grid-background"></div>
+  
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
 
   <!-- DoSE Seal Background -->
   <img src="dose-seal.png" alt="DoSE Seal" class="background-logo" />
+  
+  <div class="screen" id="screen">
+    <div class="scanline"></div>
+    
+    <div class="status-indicators">
+      <div class="status-dot success"></div>
+      <div class="status-dot success"></div>
+      <div class="status-dot success"></div>
+    </div>
 
-  <div class="screen">
-    <div class="status-text">EXTRACTION COMPLETE</div>
+    <div class="status-text" id="statusText">EXTRACTION COMPLETE</div>
+    
     <div class="details">
       Data successfully acquired by the <strong>Department of Survival Efficiency</strong>.<br><br>
       🔴 <span class="uplink-status">Uplink terminated</span><br>
       Your system has returned to idle.<br><br>
-      <em>This was a controlled simulation conducted by <strong>The GAIA Syndicate</strong>.</em>
+      <em>This was a controlled simulation conducted by <strong class="gaia-highlight">The GAIA Syndicate</strong>.</em>
     </div>
-    <a href="security-tips.html" class="cta">View Cyber Hygiene Briefing</a>
+    
+    <a href="security-tips.html" class="cta" id="ctaButton">View Cyber Hygiene Briefing</a>
   </div>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Add glitch effect periodically
+    function addGlitchEffect() {
+      const statusText = document.getElementById('statusText');
+      statusText.classList.add('glitch');
+      setTimeout(() => {
+        statusText.classList.remove('glitch');
+      }, 900);
+    }
+
+    // Initialize effects
+    window.onload = function() {
+      createParticles();
+      
+      // Add periodic glitch effects
+      setTimeout(() => {
+        addGlitchEffect();
+        setInterval(addGlitchEffect, 8000);
+      }, 3000);
+      
+      // Add hover effect to the screen
+      const screen = document.getElementById('screen');
+      screen.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.02)';
+      });
+      
+      screen.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+      });
+    };
+  </script>
 </body>
 </html>
