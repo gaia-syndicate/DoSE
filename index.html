@@ -325,21 +325,8 @@
   <!-- Floating particles -->
   <div class="particles" id="particles"></div>
 
-  <!-- DoSE Logo with enhanced effects -->
-  <svg class="background-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-        <feMerge> 
-          <feMergeNode in="coloredBlur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
-    </defs>
-    <circle cx="100" cy="100" r="95" fill="none" stroke="#00ffcc" stroke-width="3" filter="url(#glow)"/>
-    <text x="100" y="110" text-anchor="middle" fill="#00ffcc" font-family="Share Tech Mono" font-size="24" font-weight="bold" filter="url(#glow)">DoSE</text>
-    <text x="100" y="130" text-anchor="middle" fill="#00ffcc" font-family="Share Tech Mono" font-size="8">SURVIVAL EFFICIENCY</text>
-  </svg>
+  <!-- DoSE Seal Background -->
+  <img src="dose-seal.png" alt="DoSE Seal" class="background-logo" />
 
   <div class="screen" id="screen">
     <div class="scanline"></div>
@@ -411,9 +398,8 @@
           setTimeout(() => {
             warningMsg.classList.remove("hidden");
             setTimeout(() => {
-              // Simulate redirect (in real implementation, would go to truth.html)
-              document.body.style.transition = 'opacity 1s ease-out';
-              document.body.style.opacity = '0';
+              // Redirect to truth.html
+              window.location.href = "truth.html";
             }, 5000);
           }, 1000);
           return;
