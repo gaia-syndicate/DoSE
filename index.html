@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DoSE Secure Uplink</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -22,18 +23,83 @@
       position: relative;
     }
 
- .background-logo {
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0.1; /* increased from 0.05 */
-    width: 500px;
-    max-width: 80%;
-    pointer-events: none;
-    z-index: 0;
-    user-select: none;
-  }
+    /* Animated background grid */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0,255,204,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,204,0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #00ffcc;
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+      }
+    }
+
+    .background-logo {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.15;
+      width: 500px;
+      max-width: 80%;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+      filter: drop-shadow(0 0 20px rgba(0,255,204,0.3));
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.15; transform: translateX(-50%) scale(1); }
+      50% { opacity: 0.25; transform: translateX(-50%) scale(1.02); }
+    }
 
     .screen {
       position: relative;
@@ -41,23 +107,40 @@
       text-align: left;
       width: 85%;
       max-width: 960px;
-      background: #0d1117;
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%);
       padding: 2rem;
       border: 2px solid #00ffcc;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ffcc55;
+      border-radius: 15px;
+      box-shadow: 
+        0 0 30px rgba(0,255,204,0.4),
+        inset 0 0 20px rgba(0,255,204,0.1);
+      backdrop-filter: blur(10px);
+      animation: screenGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes screenGlow {
+      0% { box-shadow: 0 0 30px rgba(0,255,204,0.4), inset 0 0 20px rgba(0,255,204,0.1); }
+      100% { box-shadow: 0 0 40px rgba(0,255,204,0.6), inset 0 0 25px rgba(0,255,204,0.15); }
     }
 
     .header {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       color: #ff3c41;
       margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(255,60,65,0.5);
+      animation: textFlicker 2s ease-in-out infinite;
+    }
+
+    @keyframes textFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
     }
 
     .agency {
       font-size: 1rem;
       color: #888;
       margin-bottom: 1rem;
+      letter-spacing: 1px;
     }
 
     .terminal-line {
@@ -65,48 +148,207 @@
       font-size: 1rem;
       line-height: 1.5;
       white-space: pre-wrap;
+      opacity: 0;
+      animation: typewriter 0.5s ease-in-out forwards;
+      text-shadow: 0 0 5px rgba(0,255,204,0.3);
+    }
+
+    .terminal-line:nth-child(3) { animation-delay: 0s; }
+    .terminal-line:nth-child(4) { animation-delay: 1s; }
+    .terminal-line:nth-child(5) { animation-delay: 2s; }
+
+    @keyframes typewriter {
+      0% { opacity: 0; transform: translateX(-10px); }
+      100% { opacity: 1; transform: translateX(0); }
     }
 
     .progress-bar {
-      background: #001f1a;
-      border: 1px solid #00ffcc;
+      background: linear-gradient(90deg, #001f1a 0%, #003d35 100%);
+      border: 2px solid #00ffcc;
       margin-top: 1rem;
       position: relative;
-      height: 25px;
+      height: 30px;
       width: 100%;
-      border-radius: 5px;
+      border-radius: 15px;
       overflow: hidden;
+      box-shadow: 
+        0 0 15px rgba(0,255,204,0.3),
+        inset 0 0 10px rgba(0,0,0,0.5);
     }
 
     .progress-fill {
-      background: linear-gradient(to right, #00ffcc, #007777);
+      background: linear-gradient(90deg, #00ffcc 0%, #00ff88 50%, #00ffcc 100%);
       height: 100%;
       width: 0%;
       transition: width 0.1s linear;
-      box-shadow: 0 0 4px #00ffccaa;
+      box-shadow: 
+        0 0 15px rgba(0,255,204,0.8),
+        inset 0 0 10px rgba(255,255,255,0.2);
+      border-radius: 13px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: progressShine 1.5s ease-in-out infinite;
+    }
+
+    @keyframes progressShine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .progress-percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-weight: bold;
+      text-shadow: 0 0 5px rgba(0,0,0,0.8);
+      z-index: 2;
     }
 
     .fake-file {
       margin-top: 1.5rem;
       font-weight: bold;
       color: #f5f5f5;
+      text-shadow: 0 0 8px rgba(245,245,245,0.3);
+      animation: fileFlash 0.3s ease-in-out;
+    }
+
+    @keyframes fileFlash {
+      0% { color: #f5f5f5; transform: scale(1); }
+      50% { color: #00ffcc; transform: scale(1.05); }
+      100% { color: #f5f5f5; transform: scale(1); }
     }
 
     .warning {
       margin-top: 2rem;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #ffffff;
+      text-align: center;
+      padding: 1rem;
+      background: linear-gradient(135deg, rgba(0,255,204,0.1) 0%, rgba(255,60,65,0.1) 100%);
+      border: 1px solid #00ffcc;
+      border-radius: 10px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+      animation: warningPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes warningPulse {
+      0%, 100% { 
+        box-shadow: 0 0 15px rgba(0,255,204,0.3);
+        border-color: #00ffcc;
+      }
+      50% { 
+        box-shadow: 0 0 25px rgba(0,255,204,0.6);
+        border-color: #00ff88;
+      }
     }
 
     .hidden {
       display: none;
     }
+
+    .status-indicators {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff3c41;
+      animation: statusBlink 1s ease-in-out infinite;
+    }
+
+    .status-dot.active {
+      background: #00ffcc;
+      box-shadow: 0 0 10px rgba(0,255,204,0.6);
+    }
+
+    @keyframes statusBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Scanline effect */
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffcc, transparent);
+      animation: scanlineMove 3s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes scanlineMove {
+      0% { top: 0; opacity: 0; }
+      50% { opacity: 0.6; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .screen {
+        width: 95%;
+        padding: 1.5rem;
+      }
+      
+      .header {
+        font-size: 1.2rem;
+      }
+      
+      .background-logo {
+        width: 300px;
+      }
+    }
   </style>
 </head>
 <body>
-  <img src="dose-seal.png" alt="DoSE Seal" class="background-logo" />
+  <!-- Animated grid background -->
+  <div class="grid-background"></div>
+  
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- DoSE Logo with enhanced effects -->
+  <svg class="background-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge> 
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <circle cx="100" cy="100" r="95" fill="none" stroke="#00ffcc" stroke-width="3" filter="url(#glow)"/>
+    <text x="100" y="110" text-anchor="middle" fill="#00ffcc" font-family="Share Tech Mono" font-size="24" font-weight="bold" filter="url(#glow)">DoSE</text>
+    <text x="100" y="130" text-anchor="middle" fill="#00ffcc" font-family="Share Tech Mono" font-size="8">SURVIVAL EFFICIENCY</text>
+  </svg>
 
   <div class="screen" id="screen">
+    <div class="scanline"></div>
+    <div class="status-indicators">
+      <div class="status-dot active"></div>
+      <div class="status-dot"></div>
+      <div class="status-dot"></div>
+    </div>
+
     <div class="header">CLASSIFIED SYSTEM INTERFACE</div>
     <div class="agency">Department of Survival Efficiency [DoSE] — Remote Uplink Session Active</div>
     <div class="terminal-line">> Establishing secure uplink...</div>
@@ -115,6 +357,7 @@
 
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-percentage" id="progressPercentage">0%</div>
     </div>
 
     <div class="fake-file" id="fileName"></div>
@@ -126,7 +369,22 @@
   </div>
 
   <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
     window.onload = function () {
+      createParticles();
+      
       const fileNames = [
         "gaia_payload.sys",
         "rubber_ducky.exe",
@@ -138,39 +396,60 @@
       ];
 
       const progressFill = document.getElementById("progressFill");
+      const progressPercentage = document.getElementById("progressPercentage");
       const fileName = document.getElementById("fileName");
       const warningMsg = document.getElementById("warningMsg");
+      const statusDots = document.querySelectorAll('.status-dot');
 
       let i = 0;
 
       function uploadNextFile() {
         if (i >= fileNames.length) {
+          // All status dots active
+          statusDots.forEach(dot => dot.classList.add('active'));
+          
           setTimeout(() => {
             warningMsg.classList.remove("hidden");
             setTimeout(() => {
-              window.location.href = "truth.html";
+              // Simulate redirect (in real implementation, would go to truth.html)
+              document.body.style.transition = 'opacity 1s ease-out';
+              document.body.style.opacity = '0';
             }, 5000);
           }, 1000);
           return;
         }
 
+        // Activate status dots progressively
+        if (i < statusDots.length) {
+          statusDots[i].classList.add('active');
+        }
+
         fileName.textContent = `> Writing ${fileNames[i]}`;
+        fileName.style.animation = 'none';
+        fileName.offsetHeight; // Trigger reflow
+        fileName.style.animation = 'fileFlash 0.3s ease-in-out';
+        
         let percent = 0;
 
         const interval = setInterval(() => {
-          percent += 10;
+          percent += Math.random() * 15 + 5; // Variable speed for realism
+          if (percent > 100) percent = 100;
+          
           progressFill.style.width = percent + "%";
+          progressPercentage.textContent = Math.round(percent) + "%";
 
           if (percent >= 100) {
             clearInterval(interval);
             i++;
             progressFill.style.width = "0%";
-            setTimeout(uploadNextFile, 500);
+            progressPercentage.textContent = "0%";
+            setTimeout(uploadNextFile, 800);
           }
-        }, 100);
+        }, 120);
       }
 
-      uploadNextFile();
+      // Start the upload sequence after initial animations
+      setTimeout(uploadNextFile, 3000);
     };
   </script>
 </body>
